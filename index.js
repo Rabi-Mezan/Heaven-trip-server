@@ -21,6 +21,7 @@ async function run() {
         await client.connect();
         const database = client.db('HeavenTrip')
         const packageCollection = database.collection("packages")
+        const tripCollection = database.collection("trip")
 
         // post api for pakages
         app.post('/addpackage', async (req, res) => {
@@ -36,7 +37,6 @@ async function run() {
         })
 
         // get api for single pakage
-
         app.get('/packages/:id', async (req, res) => {
             const id = req.params.id
             const package = { _id: ObjectId(id) }
@@ -44,6 +44,26 @@ async function run() {
             res.send(result)
         })
 
+        // post api for trip
+        app.post('/booktrip', async (req, res) => {
+            const trip = req.body;
+            const result = await tripCollection.insertOne(trip);
+            res.send(result)
+        })
+
+
+        //get api for trip 
+        app.get('/trip', async (req, res) => {
+            const result = await tripCollection.find({}).toArray();
+            res.send(result);
+        })
+
+        // get api for dynamic email
+        app.get('/trip/:email', async (req, res) => {
+            const trips = { email: req.params.email }
+            const result = await tripCollection.find(trips).toArray();
+            res.send(result)
+        })
 
     } finally {
         // await client.close();
