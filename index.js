@@ -81,6 +81,19 @@ async function run() {
             res.send(result);
         })
 
+
+        // status update api
+        app.put('/trip/:id', async (req, res) => {
+            const id = req.params.id;
+            const trip = { _id: ObjectId(id) }
+            const result = await tripCollection.updateOne(trip, {
+                $set: {
+                    status: "Apporoved"
+                }
+            })
+            res.send(result);
+        })
+
     } finally {
         // await client.close();
     }
