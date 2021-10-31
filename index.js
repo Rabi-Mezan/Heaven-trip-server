@@ -65,6 +65,15 @@ async function run() {
             res.send(result)
         })
 
+        // trip delete api
+        app.delete('/trip/:id', async (req, res) => {
+            const id = req.params.id
+            const trip = { _id: ObjectId(id) }
+            const result = await tripCollection.deleteOne(trip)
+            res.send(result);
+
+        })
+
     } finally {
         // await client.close();
     }
