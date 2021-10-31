@@ -88,7 +88,7 @@ async function run() {
             const trip = { _id: ObjectId(id) }
             const result = await tripCollection.updateOne(trip, {
                 $set: {
-                    status: "Apporoved"
+                    status: "Approved"
                 }
             })
             res.send(result);
