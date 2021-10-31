@@ -72,6 +72,13 @@ async function run() {
             const result = await tripCollection.deleteOne(trip)
             res.send(result);
 
+
+        })
+
+        // get api for manage trips
+        app.get('/managetrips', async (req, res) => {
+            const result = await tripCollection.find({}).toArray();
+            res.send(result);
         })
 
     } finally {
